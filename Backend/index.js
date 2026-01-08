@@ -14,10 +14,11 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false,
   auth: {
-    user: '9f9955001@smtp-brevo.com',   // Brevo Login
-    pass: 'VzqMUYpIdXPC1LjZ'            // Brevo SMTP Key
+    user: '9f9a63001@smtp-brevo.com',   // Brevo Login
+    pass: 'xsmtpsib-5613612e9d441f11d45e2aca881690b50a04b6a3a8a6642f0dd3e06d8cde84a6-8vQTSUeSEl8FT3hp'            // Brevo SMTP Key
   }
 })
+// xsmtpsib-5613612e9d441f11d45e2aca881690b50a04b6a3a8a6642f0dd3e06d8cde84a6-8vQTSUeSEl8FT3hp
 
 // Test route
 app.get('/', (req, res) => {
@@ -34,8 +35,8 @@ app.post('/api/send-email', async (req, res) => {
 
   try {
     await transporter.sendMail({
-      from: `"Portfolio Contact" <spottersp143@gmail.com>`,
-      to: 'spottersp143@gmail.com',   // ✅ Tumhe email milega
+      from: `"Portfolio Contact" <prajapati404142@gmail.com>`,
+      to: 'prajapati404142@gmail.com',   // ✅ Tumhe email milega
       replyTo: email,                    // ✅ HR ko reply jayega
       subject: subject || 'New Portfolio Message',
       html: `
