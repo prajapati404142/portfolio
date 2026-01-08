@@ -8,24 +8,23 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-// ✅ Brevo SMTP Transporter
+// ✅ Brevo SMTP Transporter (NO .env)
 const transporter = nodemailer.createTransport({
   host: 'smtp-relay.brevo.com',
   port: 587,
   secure: false,
   auth: {
-    user: '9f9a63001@smtp-brevo.com',   // Brevo Login
-    pass: "xsmtpsib-5613612e9d441f11d45e2aca881690b50a04b6a3a8a6642f0dd3e06d8cde84a6-8vQTSUeSEl8FT3hp"            // Brevo SMTP Key
+    user: '9f9a63001@smtp-brevo.com', // Brevo login
+    pass: 'NEW_BREVO_SMTP_KEY'        // 🔴 regenerate & paste here
   }
 })
 
-
-// Test route
+// ✅ Health check
 app.get('/', (req, res) => {
   res.send('<h1>Server is running 🚀</h1>')
 })
 
-// ✅ Contact Form API
+// ✅ Contact form API
 app.post('/api/send-email', async (req, res) => {
   const { name, email, subject, message } = req.body
 
@@ -35,10 +34,11 @@ app.post('/api/send-email', async (req, res) => {
 
   try {
     await transporter.sendMail({
-      from: `"Portfolio Contact" <prajapati404142@gmail.com>`,
-      to: 'prajapati404142@gmail.com',   // ✅ Tumhe email milega
-      replyTo: email,                    // ✅ HR ko reply jayega
-      subject: subject || 'New Portfolio Message',
+      // 🔥 IMPORTANT: FROM must be Brevo login
+      from: `"Portfolio Website" <9f9a63001@smtp-brevo.com>`,
+      to: 'prajapati404142@gmail.com',
+      replyTo: email, // HR ka email
+      subject: subject || 'New Portfolio Contact',
       html: `
         <h2>New Contact Message</h2>
         <p><b>Name:</b> ${name}</p>
@@ -56,6 +56,7 @@ app.post('/api/send-email', async (req, res) => {
   }
 })
 
-app.listen(5000, () => {
-  console.log('Server running on port 5000')
+const PORT = process.env.PORT || 5000
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
 })
