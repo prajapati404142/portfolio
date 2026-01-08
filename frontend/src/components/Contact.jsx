@@ -39,9 +39,9 @@ export default function Contact() {
             },
             body: JSON.stringify(formData),
         })
-        console.log("before data")
+        console.log("before data", res);
       const data = await res.json()
-      console.log("after data")
+      console.log("after data", data);
       if (!res.ok) {
         throw new Error(data.message || 'Something went wrong')
       }

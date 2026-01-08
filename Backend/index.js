@@ -8,37 +8,41 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
+// ✅ Brevo SMTP Transporter
 const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
+  host: 'smtp-relay.brevo.com',
   port: 587,
   secure: false,
   auth: {
-    user: 'prajapati404142@gmail.com',
-    pass: 'kvqwlkxbgfxggioc' // App Password
+    user: '9f9955001@smtp-brevo.com',   // Brevo Login
+    pass: 'VzqMUYpIdXPC1LjZ'            // Brevo SMTP Key
   }
 })
+
+// Test route
 app.get('/', (req, res) => {
- return res.send('<h1>server is running</h1>');
+  res.send('<h1>Server is running 🚀</h1>')
 })
 
+// ✅ Contact Form API
 app.post('/api/send-email', async (req, res) => {
   const { name, email, subject, message } = req.body
 
   if (!name || !email || !message) {
-    return res.status(400).json({ message: 'All fields required' })
+    return res.status(400).json({ message: 'All fields are required' })
   }
 
   try {
     await transporter.sendMail({
-      from: `"${name}" <prajapati404142@gmail.com>`,
-      to: 'prajapati404142@gmail.com',   //  EMAIL mujhe ayega
-      replyTo: email,                    //  Reply user ko jayega
-      subject: subject || 'New Contact Form Message',
+      from: `"Portfolio Contact" <prajapati404142@gmail.com>`,
+      to: 'prajapati404142@gmail.com',   // ✅ Tumhe email milega
+      replyTo: email,                    // ✅ HR ko reply jayega
+      subject: subject || 'New Portfolio Message',
       html: `
-        <h2>New Contact Form Message</h2>
+        <h2>New Contact Message</h2>
         <p><b>Name:</b> ${name}</p>
         <p><b>Email:</b> ${email}</p>
-        <p><b>Subject:</b> ${subject}</p>
+        <p><b>Subject:</b> ${subject || '-'}</p>
         <p><b>Message:</b></p>
         <p>${message}</p>
       `
@@ -46,7 +50,7 @@ app.post('/api/send-email', async (req, res) => {
 
     res.status(200).json({ message: 'Email sent successfully' })
   } catch (error) {
-    console.error(error)
+    console.error('Email Error:', error)
     res.status(500).json({ message: 'Email sending failed' })
   }
 })
