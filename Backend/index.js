@@ -17,6 +17,9 @@ const transporter = nodemailer.createTransport({
     pass: 'kvqwlkxbgfxggioc' // App Password
   }
 })
+app.get('/', (req, res) => {
+ return res.send('<h1>server is running</h1>');
+})
 
 app.post('/api/send-email', async (req, res) => {
   const { name, email, subject, message } = req.body
