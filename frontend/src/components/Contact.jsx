@@ -32,7 +32,7 @@ export default function Contact() {
 
     try {
         setLoading(true)
-        const res = await fetch('http://localhost:5000/api/send-email', {
+        const res = await fetch('https://portfolio-q8nc.onrender.com/api/send-email', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
