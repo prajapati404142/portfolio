@@ -34,8 +34,8 @@ app.post('/api/send-email', async (req, res) => {
 
   try {
     await transporter.sendMail({
-      from: `"Portfolio Contact" <prajapati404142@gmail.com>`,
-      to: 'prajapati404142@gmail.com',   // ✅ Tumhe email milega
+      from: `"Portfolio Contact" <spottersp143@gmail.com>`,
+      to: 'spottersp143@gmail.com',   // ✅ Tumhe email milega
       replyTo: email,                    // ✅ HR ko reply jayega
       subject: subject || 'New Portfolio Message',
       html: `
