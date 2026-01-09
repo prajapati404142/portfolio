@@ -83,6 +83,7 @@ export default function Hero({ onNavigate }) {
             <a
               href="/resume/Saurabh_Kumar_Resume.pdf"
               target="_blank"
+              download
               className="px-6 py-3 rounded-lg border border-gray-700 flex items-center gap-2 hover:bg-gray-800 transition"
             >
               <Download size={18} /> Resume
