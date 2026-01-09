@@ -81,7 +81,7 @@ export default function Hero({ onNavigate }) {
             </button>
 
             <a
-              href="public/resume/Saurabh_Kumar_Resume.pdf"
+              href="/resume/Saurabh_Kumar_Resume.pdf"
               target="_blank"
               className="px-6 py-3 rounded-lg border border-gray-700 flex items-center gap-2 hover:bg-gray-800 transition"
             >
