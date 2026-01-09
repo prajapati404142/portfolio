@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: false }))
 // ✅ Brevo API Configuration
 const client = SibApiV3Sdk.ApiClient.instance
 client.authentications['api-key'].apiKey =
-  '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'
+  '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'
 
 const tranEmailApi = new SibApiV3Sdk.TransactionalEmailsApi()
 
