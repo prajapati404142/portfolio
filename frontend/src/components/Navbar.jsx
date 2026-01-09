@@ -16,13 +16,14 @@ export default function Navbar({ activeSection, onNavigate, isOpen, setIsOpen })
                     ))}
                     
                     <a
-                        href="/resume/Saurabh_Kumar_resume.pdf"
-                        target="_blank"
-                        download
-                       className="ml-4 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded flex items-center gap-2"
+                      href="/resume/Saurabh_kumar_resume.pdf"
+                      target="_blank"
+                      download
+                      className="px-6 py-3 rounded-lg border border-gray-700 flex items-center gap-2 hover:bg-gray-800 transition"
                     >
-                        <Download size={18} /> Resume
+                      <Download size={18} /> Resume
                     </a>
+
 
                 </div>
                 <button className="lg:hidden" onClick={() => setIsOpen(!isOpen)}>{isOpen ? <X /> : <Menu />}</button>
