@@ -1,6 +1,6 @@
 const express = require('express')
-const nodemailer = require('nodemailer')
 const cors = require('cors')
+const SibApiV3Sdk = require('sib-api-v3-sdk')
 
 const app = express()
 
@@ -8,23 +8,19 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-// ✅ Brevo SMTP Transporter
-const transporter = nodemailer.createTransport({
-  host: 'smtp-relay.brevo.com',
-  port: 587,
-  secure: false,
-  auth: {
-    user: '9f9a63001@smtp-brevo.com', // Brevo SMTP Login
-    pass: 'bskCe0OxdLIILDX'           // Brevo SMTP Key
-  }
-})
+// ✅ Brevo API Configuration
+const client = SibApiV3Sdk.ApiClient.instance
+client.authentications['api-key'].apiKey =
+  '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'
+
+const tranEmailApi = new SibApiV3Sdk.TransactionalEmailsApi()
 
 // ✅ Health Check
 app.get('/', (req, res) => {
   res.send('Server is running 🚀')
 })
 
-// ✅ Contact Form API
+// ✅ Contact Form API (API based email)
 app.post('/api/send-email', async (req, res) => {
   const { name, email, subject, message } = req.body
 
@@ -33,12 +29,20 @@ app.post('/api/send-email', async (req, res) => {
   }
 
   try {
-    await transporter.sendMail({
-      from: '"Portfolio Contact" <prajapati404142@gmail.com>', // ✅ VERIFIED SENDER
-      to: 'prajapati404142@gmail.com',                          // 📩 tumhe milega
-      replyTo: email,                                          // ↩️ HR ko reply jayega
+    await tranEmailApi.sendTransacEmail({
+      sender: {
+        email: 'prajapati404142@gmail.com', // ✅ VERIFIED sender
+        name: 'Portfolio Contact'
+      },
+      to: [
+        { email: 'prajapati404142@gmail.com' } // 📩 tumhe mail milega
+      ],
+      replyTo: {
+        email: email,
+        name: name
+      },
       subject: subject || 'New Portfolio Message',
-      html: `
+      htmlContent: `
         <h2>New Portfolio Contact</h2>
         <p><b>Name:</b> ${name}</p>
         <p><b>Email:</b> ${email}</p>
@@ -50,7 +54,7 @@ app.post('/api/send-email', async (req, res) => {
 
     res.status(200).json({ message: 'Email sent successfully ✅' })
   } catch (error) {
-    console.error('Email Error:', error)
+    console.error('Email API Error:', error)
     res.status(500).json({ message: 'Email sending failed ❌' })
   }
 })
