@@ -81,13 +81,14 @@ export default function Hero({ onNavigate }) {
             </button>
 
             <a
-              href="/resume/Saurabh_Kumar_resume.pdf"
+              href="/resume/Saurabh_kumar_resume.pdf"
               target="_blank"
               download
               className="px-6 py-3 rounded-lg border border-gray-700 flex items-center gap-2 hover:bg-gray-800 transition"
             >
               <Download size={18} /> Resume
             </a>
+
           </div>
 
           {/* Social Links */}
