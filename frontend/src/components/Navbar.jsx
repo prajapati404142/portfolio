@@ -16,8 +16,9 @@ export default function Navbar({ activeSection, onNavigate, isOpen, setIsOpen })
                     ))}
                     
                     <a
-                        href="public/resume/Saurabh_Kumar_Resume.pdf"
+                        href="/resume/Saurabh_Kumar_resume.pdf"
                         target="_blank"
+                        download
                        className="ml-4 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded flex items-center gap-2"
                     >
                         <Download size={18} /> Resume
