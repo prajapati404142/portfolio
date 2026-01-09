@@ -8,20 +8,20 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-// ✅ Brevo SMTP Configuration
+// ✅ Brevo SMTP Transporter
 const transporter = nodemailer.createTransport({
   host: 'smtp-relay.brevo.com',
   port: 587,
   secure: false,
   auth: {
-    user: '9f9a63001@smtp-brevo.com',   // Brevo Login
-    pass: 'bskCe0OxdLIILDX'             // Brevo SMTP Key
+    user: '9f9a63001@smtp-brevo.com', // Brevo SMTP Login
+    pass: 'bskCe0OxdLIILDX'           // Brevo SMTP Key
   }
 })
 
-// ✅ Test route
+// ✅ Health Check
 app.get('/', (req, res) => {
-  res.send('<h1>Server is running 🚀</h1>')
+  res.send('Server is running 🚀')
 })
 
 // ✅ Contact Form API
@@ -29,17 +29,17 @@ app.post('/api/send-email', async (req, res) => {
   const { name, email, subject, message } = req.body
 
   if (!name || !email || !message) {
-    return res.status(400).json({ message: 'All fields required' })
+    return res.status(400).json({ message: 'All fields are required' })
   }
 
   try {
     await transporter.sendMail({
-      from: '"Portfolio Contact" <9f9a63001@smtp-brevo.com>', // ⚠️ MUST be verified sender
-      to: 'prajapati404142@gmail.com', // 📩 tumhe email milega
-      replyTo: email,                  // ↩️ reply user ko jayega
-      subject: subject || 'New Contact Form Message',
+      from: '"Portfolio Contact" <prajapati404142@gmail.com>', // ✅ VERIFIED SENDER
+      to: 'prajapati404142@gmail.com',                          // 📩 tumhe milega
+      replyTo: email,                                          // ↩️ HR ko reply jayega
+      subject: subject || 'New Portfolio Message',
       html: `
-        <h2>New Contact Form Message</h2>
+        <h2>New Portfolio Contact</h2>
         <p><b>Name:</b> ${name}</p>
         <p><b>Email:</b> ${email}</p>
         <p><b>Subject:</b> ${subject || '-'}</p>
